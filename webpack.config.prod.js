@@ -1,19 +1,28 @@
+// For info about this file refer to webpack and webpack-hot-middleware documentation
+// For info on how we're generating bundles with hashed filenames for cache busting: https://medium.com/@okonetchnikov/long-term-caching-of-static-assets-with-webpack-1ecb139adb95#.w99i89nsz
 import webpack from 'webpack';
-import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import WebpackMd5Hash from 'webpack-md5-hash';
+
+import autoprefixer from 'autoprefixer';
+import path from 'path';
 
 const GLOBALS = {
-  'process.env.NODE_ENV': JSON.stringify('production') //This global makes sure React is built in prod mode. https://facebook.github.io/react/downloads.html
+  'process.env.NODE_ENV': JSON.stringify('production'), //This global makes sure React is built in prod mode. https://facebook.github.io/react/downloads.html
+  __DEV__: false
 };
 
 export default {
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   debug: true,
   devtool: 'source-map',
-  noInfo: false,
-  entry:'./src/index',
+  noInfo: true,
+  entry: path.resolve(__dirname, 'src/index'),
   target: 'web',
   output: {
-    path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
+    path: path.resolve(__dirname, 'dist'), // Note: Physical files are only output by the production build task `npm run build`.
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -21,10 +30,18 @@ export default {
     contentBase: './dist'
   },
   plugins: [
+    // Hash the files using MD5 so that their names change when the content changes.
+    new WebpackMd5Hash(),
+    // Optimize the order that items are bundled. This assures the hash is deterministic.
     new webpack.optimize.OccurenceOrderPlugin(),
+    // Tells React to build in prod mode. https://facebook.github.io/react/downloads.html
     new webpack.DefinePlugin(GLOBALS),
+    // Generate an external css file with a hash in the filename
+    // new ExtractTextPlugin('[name].[contenthash].css'),
     new ExtractTextPlugin('styles.css'),
+    // Eliminate duplicate packages when generating bundle
     new webpack.optimize.DedupePlugin(),
+    // Minify JS
     new webpack.optimize.UglifyJsPlugin()
   ],
   module: {
@@ -38,5 +55,6 @@ export default {
       {test: /\.ico$/, loader: 'file?name=[name].[ext]'},
       {test: /(\.css|\.scss)$/, loader: ExtractTextPlugin.extract('css?sourceMap!postcss!sass?sourceMap')}
     ]
-  }
+  },
+  postcss: ()=> [autoprefixer]
 };

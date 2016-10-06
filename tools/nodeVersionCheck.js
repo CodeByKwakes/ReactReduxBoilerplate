@@ -5,6 +5,6 @@ exec('node -v', function (err, stdout) {
   if (err) throw err;
 
   if (parseFloat(stdout.slice(1)) < 4) {
-    throw new Error('React boilplate requires node 4.0 or greater.');
+    throw new Error('ReactReduxBoilplate requires node 4.0 or greater.');
   }
 });
