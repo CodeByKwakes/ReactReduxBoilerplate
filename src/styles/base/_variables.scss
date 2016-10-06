@@ -1,0 +1,33 @@
+﻿// Breakpoints
+$bp-ms: 480;
+$bp-sm: 768;
+$bp-md: 992;
+$bp-lg: 1200;
+
+// Colours
+$green: #0097a9;
+$white: #ffffff;
+$black: #000000;
+$yellow: #ffcd00;
+$orange: #e45614;
+$purple: #a73474;
+$dark-grey: #424244;
+$light-grey: #537385;
+$light-green: #d9f3ca;
+$dark-green: #537381;
+$blue: #0065bd;
+$teal: #6bc2b9;
+$grey: #d8e1e7;
+
+// rgba transparency
+$green-transparency: rgba(0, 151, 169, .8);
+$purple-opacity: rgba(167, 52, 116, 0.16);
+
+// Fonts
+$basefont: 'Arial', 'Helvetica', 'sans-serif';
+
+$basefont-size: 16;                    // Used in "em" function for media query min() and max() mixins
+$base-font-size: 16px;
+$base-line-height: 20px;
+$baseline-px: ($basefont-size * 1px);  // Used in "rem" mixin, base font size in px
+

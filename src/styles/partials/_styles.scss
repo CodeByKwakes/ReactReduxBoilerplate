@@ -1,0 +1,31 @@
+﻿
+// Main site styles
+
+body {
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: $light-grey;
+}
+
+h3 {
+    font-family: $basefont;
+    font-size: 30px;
+}
+
+h4 {
+    font-family: $basefont;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    &.font-white  { color: $white; }
+    &.font-purple { color: $purple; }
+}
+
+p { letter-spacing: 1px; }
+
+p a { font-weight: bold; }
+
+hr { height: 3px; }
+
